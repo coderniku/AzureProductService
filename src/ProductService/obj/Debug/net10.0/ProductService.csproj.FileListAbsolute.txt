@@ -168,3 +168,4 @@ D:\Learning Documents 2\Azure 11 PM Batch\Practice\Day1mywebapiapp\src\ProductSe
 D:\Learning Documents 2\Azure 11 PM Batch\Practice\Day1mywebapiapp\src\ProductService\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Learning Documents 2\Azure 11 PM Batch\Practice\Day1mywebapiapp\src\ProductService\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Learning Documents 2\Azure 11 PM Batch\Practice\Day1mywebapiapp\src\ProductService\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Learning Documents 2\Azure 11 PM Batch\Practice\Day1mywebapiapp\src\ProductService\obj\Debug\net10.0\ProductService.sourcelink.json
