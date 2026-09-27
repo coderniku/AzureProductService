@@ -1,19 +1,38 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: NAgent
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  # Install .NET 10 SDK
+  - task: UseDotNet@2
+    displayName: 'Install .NET 10 SDK'
+    inputs:
+      packageType: 'sdk'
+      version: '10.x'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  # Restore NuGet packages
+  - script: dotnet restore src/ProductService/ProductService.csproj
+    displayName: 'Restore'
+
+  # Build the application
+  - script: dotnet build src/ProductService/ProductService.csproj -c Release --no-restore
+    displayName: 'Build'
+
+  # Run unit tests
+  - script: dotnet test test/MyTests/MyTests.csproj -c Release
+    displayName: 'Test'
+
+  # Publish the application
+  - script: dotnet publish src/ProductService/ProductService.csproj -c Release -o $(Build.ArtifactStagingDirectory)
+    displayName: 'Publish'
+
+  # Deploy to Azure App Service
+  - task: AzureWebApp@1
+    displayName: 'Deploy to Azure App Service'
+    inputs:
+      azureSubscription: 'MySeviceConnection'   # Service connection name
+      appType: 'webApp'
+      appName: 'N-ProductService'   # WebApp Name
+      package: '$(Build.ArtifactStagingDirectory)'
